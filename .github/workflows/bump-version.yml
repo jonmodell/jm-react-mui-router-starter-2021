@@ -10,4 +10,4 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry-run: true
+          dry_run: true
