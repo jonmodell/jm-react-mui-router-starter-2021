@@ -1,22 +1,23 @@
 name: Bump and Release
 on: workflow_dispatch
 jobs:
-  Release:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.0
+        uses: miguelfito/github-bump-and-tag-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_release_rules: bug:patch:Bug Fixes,Bugfix:patch:Bug Fixes,chore:patch:Chores,feat:minor:Features,Feature:minor:Features,BREAKING_CHANGE:major:Breaking_Changes
-          create_annotated_tag: false
+
       - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: ${{ steps.tag_version.outputs.new_tag }}
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          release_name: ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
