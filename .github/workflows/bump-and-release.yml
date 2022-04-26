@@ -12,7 +12,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_release_rules: bug:patch:Bug Fixes,Bugfix:patch:Bug Fixes,chore:patch:Chores,feat:minor:Features,Feature:minor:Features,BREAKING CHANGE:major:Breakers,
+          custom_release_rules: bug:patch:Bug Fixes,Bugfix:patch:Bug Fixes,chore:patch:Chores,feat:minor:Features,Feature:minor:Features,
           create_annotated_tag: false
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
